@@ -1,5 +1,6 @@
 package com.bookingApp.booking.service;
 
+import com.bookingApp.booking.dto.UserLogin;
 import com.bookingApp.booking.model.User;
 import com.bookingApp.booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,21 +44,13 @@ public class UserService {
         }
     }
 
-    public String verify(User user) throws Exception {
-        try{
-
-            Authentication authentication =
-                    authenticationManager.authenticate((new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())));
-
-            if(authentication.isAuthenticated()){
-
-                return jwtService.generateToken(user.getUsername());
-
-            }
-        }catch (Exception e) {
-            throw new Exception(e.getMessage());
+    public String verify(User user) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(user.getUsername());
+        } else {
+            return "fail";
         }
-        return "";
     }
 
 
