@@ -34,9 +34,8 @@ public class SpringSecurity {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")  // Use hasAuthority instead of hasRole
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
-
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

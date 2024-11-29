@@ -16,7 +16,6 @@ public class User {
     private ObjectId id;
 
     @NonNull
-    @Indexed(unique = true)
     private String username;
 
     @NonNull

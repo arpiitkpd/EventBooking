@@ -85,7 +85,7 @@ public class BookingService {
         User user = userRepository.findByUsername(authentication.getName());
         if(user== null) throw new IllegalArgumentException("User is not found");
 
-        List<Booking> userBooking = bookingRepository.findByUserId(String.valueOf(user.getId()));
+        List<Booking> userBooking = bookingRepository.findByUser(user);
         return userBooking;
     }
 

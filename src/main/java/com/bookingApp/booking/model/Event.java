@@ -1,10 +1,13 @@
 package com.bookingApp.booking.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -12,11 +15,15 @@ import java.time.LocalDate;
 
 @Document(collection = "events")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Event {
 
         @Id
         private ObjectId id;
 
+        @NonNull
+        @DBRef
         private User user;
 
         @NonNull
@@ -39,6 +46,7 @@ public class Event {
 
         private String description;
 
+        @Indexed
         private String category;
 
     }

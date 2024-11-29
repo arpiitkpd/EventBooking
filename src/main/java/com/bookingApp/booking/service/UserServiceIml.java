@@ -14,14 +14,13 @@ public class UserServiceIml implements UserDetailsService {
     @Autowired
     private UserRepository repo;
 
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repo.findByUsername(username);
-
-        if(user !=null){
-            return new UserPrincipal(user);
+        if (user == null) {
+            System.out.println("User Not Found");
+            throw new UsernameNotFoundException("user not found");
         }
-        System.out.println("user Not Found");
-        throw  new UsernameNotFoundException("User is not found");
+
+        return new UserPrincipal(user);
     }
 }
